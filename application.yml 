@@ -1,0 +1,26 @@
+# application.yml 
+proxy:
+  title: QA1 Apps
+  logo-url: https://www.openanalytics.eu/shinyproxy/logo.png
+  container-backend: docker
+  authentication: simple
+  admin-groups: scientists
+  users:
+    - name: edgar
+      password: edgar
+      groups: scientists
+  docker:
+    internal-networking: true
+    default-container-network: shiny-net
+  specs:
+    - id: causalapp
+      display-name: Causal App
+      description: Application which demonstrates the basics of a Shiny app
+      container-image: ghcr.io/edgar-treischl/shinyproxy
+      container-cmd: ["R", "-e", "shiny::runApp('/app', host='0.0.0.0', port=3838)"]
+      container-port: 3838
+      logo-url: https://imgs.xkcd.com/comics/correlation_2x.png
+
+logging:
+  file:
+    name: shinyproxy.log

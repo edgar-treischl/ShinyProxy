@@ -1,0 +1,20 @@
+# docker-compose.yml 
+version: '3.8'
+
+services:
+  shinyproxy:
+    image: openanalytics/shinyproxy:3.2.0
+    container_name: shinyproxy
+    user: root
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./application.yml:/opt/shinyproxy/application.yml:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - shiny-net
+    restart: unless-stopped
+
+networks:
+  shiny-net:
+    external: true
